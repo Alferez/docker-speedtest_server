@@ -36,6 +36,8 @@ RUN apt-get install -y --fix-missing zip unzip
 WORKDIR /var/www/html
 RUN wget http://cdn.speedtest.speedtest.net/http_legacy_fallback.zip
 RUN unzip http_legacy_fallback.zip
+RUN mv /var/www/html/speedtest/* /var/www/html/
+RUN rm -rf /var/www/html/speedtest
 RUN rm http_legacy_fallback.zip
 COPY ./assets/crossdomain.xml /var/www/html/crossdomain.xml
 COPY ./assets/OoklaServer.properties /speedtest/OoklaServer.properties

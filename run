@@ -1,0 +1,17 @@
+#!/bin/bash
+IP=''
+IPV6=''
+
+docker rm -f Speedtest_Server
+
+if [ ! -z $IP ] && [ ! -z $IPV6 ]
+then
+	docker run --restart=always -d --name Speedtest_Server -p $IP:80:80 -p $IP:443:443 -p $IP:8080:8080 -p $IP:8080:8080/udp -p $IP:5060:5060 -p $IPV6:80:80 -p $IPV6:443:443 -p $IPV6:8080:8080 -p $IPV6:8080:8080/udp -p $IPV6:5060:5060 alferez/speedtest_server
+else
+	if [ ! -z $IP ] && [ -z $IPV6 ]
+	then
+		docker run --restart=always -d --name Speedtest_Server -p $IP:80:80 -p $IP:443:443 -p $IP:8080:8080 -p $IP:8080:8080/udp -p $IP:5060:5060 alferez/speedtest_server
+	else
+		docker run --restart=always -d --name Speedtest_Server -p 80:80 -p 443:443 -p 8080:8080 -p 8080:8080/udp -p 5060:5060 alferez/speedtest_server
+	fi
+fi
